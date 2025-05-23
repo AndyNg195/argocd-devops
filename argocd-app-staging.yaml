@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: petclinic-staging
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/AndyNg195/argocd-devops.git
+    targetRevision: staging
+    path: .
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: petclinic-staging
+  syncPolicy:
+    automated: {}
