@@ -1,0 +1,36 @@
+namespace: staging
+
+imageTag: &tag v1.0
+
+services:
+  config-server:
+    image:
+      tag: *tag
+
+  discovery-server:
+    image:
+      tag: *tag
+
+  admin-server:
+    image:
+      tag: *tag
+
+  customers-service:
+    image:
+      tag: *tag
+
+  visits-service:
+    image:
+      tag: *tag
+
+  vets-service:
+    image:
+      tag: *tag
+
+  genai-service:
+    image:
+      tag: *tag
+
+  api-gateway:
+    image:
+      tag: *tag

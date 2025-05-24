@@ -1,0 +1,30 @@
+namespace: dev
+
+services:
+  spring-petclinic-config-server:
+    image:
+      tag: lastest
+
+  spring-petclinic-discovery-server:
+    image:
+      tag: lastest
+
+  spring-petclinic-admin-server:
+    image:
+      tag: lastest
+
+  spring-petclinic-customers-service:
+    image:
+      tag: lastest
+
+  spring-petclinic-visits-service:
+    image:
+      tag: lastest
+
+  spring-petclinic-vets-service:
+    image:
+      tag: lastest
+
+  spring-petclinic-api-gateway:
+    image:
+      tag: lastest
