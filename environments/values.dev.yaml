@@ -3,28 +3,28 @@ namespace: dev
 services:
   spring-petclinic-config-server:
     image:
-      tag: lastest
+      tag: latest
 
   spring-petclinic-discovery-server:
     image:
-      tag: lastest
+      tag: latest
 
   spring-petclinic-admin-server:
     image:
-      tag: lastest
+      tag: latest
 
   spring-petclinic-customers-service:
     image:
-      tag: lastest
+      tag: latest
 
   spring-petclinic-visits-service:
     image:
-      tag: lastest
+      tag: latest
 
   spring-petclinic-vets-service:
     image:
-      tag: lastest
+      tag: latest
 
   spring-petclinic-api-gateway:
     image:
-      tag: lastest
+      tag: latest
