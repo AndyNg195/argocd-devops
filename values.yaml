@@ -1,3 +1,4 @@
+namespace: spring-petclinic
 imagePullPolicy: IfNotPresent
 
 docker:
