@@ -14,8 +14,4 @@ spec:
     - protocol: TCP
       port: {{ $service.ports.port }}       
       targetPort: {{ $service.ports.targetPort | default 0 }}  
-      {{- if eq $service.type "NodePort" }}
-      nodePort: {{ $service.ports.nodePort }} 
-      {{- end }}
----
 {{- end }}
