@@ -7,7 +7,6 @@ metadata:
     app: {{ $name }}
   namespace: {{ $.Values.namespace }}
 spec:
-  type: {{ $service.type | default "ClusterIP" }}  
   selector:
     app: {{ $name }}
   ports:
