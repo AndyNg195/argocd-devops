@@ -4,7 +4,8 @@ metadata:
   name: petclinic-app
   namespace: argocd
 spec:
-  project: petclinic-project
+  project: default
+  
 
   source:
     repoURL: https://github.com/AndyNg195/argocd-devops.git 
