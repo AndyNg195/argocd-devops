@@ -9,8 +9,18 @@ spec:
     repoURL: https://github.com/AndyNg195/argocd-devops.git
     targetRevision: main
     path: .
+    helm:
+      valueFiles:
+        - values.yaml                   
+        - values/values-staging.yaml 
+
   destination:
     server: https://kubernetes.default.svc
     namespace: staging
+
   syncPolicy:
-    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
