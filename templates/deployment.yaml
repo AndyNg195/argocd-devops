@@ -1,78 +1,45 @@
+{{- range $name, $service := .Values.services }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "petclinic.fullname" . }}
+  name: {{ $name }}
   labels:
-    {{- include "petclinic.labels" . | nindent 4 }}
+    app: {{ $name }}
+  namespace: {{ $.Values.namespace }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  revisionHistoryLimit: 2
+  replicas: {{ $service.replicas | default 1 }}
   selector:
     matchLabels:
-      {{- include "petclinic.selectorLabels" . | nindent 6 }}
+      app: {{ $name }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "petclinic.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        app: {{ $name }}
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "petclinic.serviceAccountName" . }}
-      {{- with .Values.podSecurityContext }}
-      securityContext:
-        {{- toYaml . | nindent 8 }}
+      {{- if $service.dependOn }}
+      initContainers:
+        - name: init-container-for-{{ $name }}
+          image: curlimages/curl:latest
+          command:
+            - sh
+            - -c
+            - >
+              until curl -I http://{{ $service.dependOn.name }}:{{ $service.dependOn.port }};
+              do echo "waiting for {{ $service.dependOn.name }}..."; sleep 5;
+              done
       {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
-          {{- with .Values.securityContext }}
-          securityContext:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: {{ $name }}
+          image: "{{ $service.dockerRepository | default $.Values.docker.repository }}/{{ $service.image.name }}:{{ $service.image.tag | default "latest" }}"
+          imagePullPolicy: "{{ $.Values.imagePullPolicy | default "Always"}}"
           ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
-          {{- with .Values.livenessProbe }}
-          livenessProbe:
-            {{- toYaml . | nindent 12 }}
+            - containerPort: {{ $service.ports.targetPort | default 0 }}
+          {{- if $service.env }}
+          env:
+            {{- toYaml $service.env | nindent 12 }}
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: {{ $name }}
           {{- end }}
-          {{- with .Values.readinessProbe }}
-          readinessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.resources }}
-          resources:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
-      volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+---
+{{- end }}

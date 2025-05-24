@@ -6,19 +6,19 @@ docker:
 
 ingress:
   name: spring-petclinic-ingress
-  host: petclinic.cloud
+  host: wecall.space
   userServiceName: api-gateway
   userServicePort: 8080
   adminServiceName: admin-server
   adminServicePort: 9090
-  eurekaServiceName: discovery-server
-  eurekaServicePort: 8761
+  discoveryServiceName: discovery-server
+  discoveryServicePort: 8761
 
 configServerEnv: &configServerEnv
   name: CONFIG_SERVER_URL
   value: http://config-server:8888
 
-dependOnEureka: &dependOnEureka
+dependOnDiscovery: &dependOnDiscovery
   name: discovery-server
   port: 8761
 
@@ -50,7 +50,7 @@ services:
       name: spring-petclinic-admin-server
     env: 
       - *configServerEnv
-    dependOn: *dependOnEureka
+    dependOn: *dependOnDiscovery
 
   customers-service:
     ports:
@@ -60,7 +60,7 @@ services:
       name: spring-petclinic-customers-service
     env: 
       - *configServerEnv
-    dependOn: *dependOnEureka
+    dependOn: *dependOnDiscovery
 
   visits-service:
     ports:
@@ -70,7 +70,7 @@ services:
       name: spring-petclinic-visits-service
     env: 
       - *configServerEnv
-    dependOn: *dependOnEureka
+    dependOn: *dependOnDiscovery
 
   vets-service:
     ports:
@@ -80,7 +80,7 @@ services:
       name: spring-petclinic-vets-service
     env: 
       - *configServerEnv
-    dependOn: *dependOnEureka
+    dependOn: *dependOnDiscovery
 
   api-gateway:
     ports:
@@ -90,4 +90,4 @@ services:
       name: spring-petclinic-api-gateway
     env: 
       - *configServerEnv
-    dependOn: *dependOnEureka
+    dependOn: *dependOnDiscovery
