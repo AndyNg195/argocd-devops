@@ -3,6 +3,40 @@ kind: Application
 metadata:
   name: petclinic-staging
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: |
+      docker.io/andyng195/spring-petclinic-config-server
+      docker.io/andyng195/spring-petclinic-discovery-server
+      docker.io/andyng195/spring-petclinic-admin-server
+      docker.io/andyng195/spring-petclinic-customers-service
+      docker.io/andyng195/spring-petclinic-visits-service
+      docker.io/andyng195/spring-petclinic-vets-service
+      docker.io/andyng195/spring-petclinic-api-gateway
+
+    # Đặt chiến lược cho mỗi image
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-config-server.update-strategy: latest
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-config-server.allow-tags: regexp:^.*$
+
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-discovery-server.update-strategy: latest
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-discovery-server.allow-tags: regexp:^.*$
+
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-admin-server.update-strategy: latest
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-admin-server.allow-tags: regexp:^.*$
+
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-customers-service.update-strategy: latest
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-customers-service.allow-tags: regexp:^.*$
+
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-visits-service.update-strategy: latest
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-visits-service.allow-tags: regexp:^.*$
+
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-vets-service.update-strategy: latest
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-vets-service.allow-tags: regexp:^.*$
+
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-api-gateway.update-strategy: latest
+    argocd-image-updater.argoproj.io/andyng195.spring-petclinic-api-gateway.allow-tags: regexp:^.*$
+
+    # Cho phép ghi ngược về Git (values.yaml)
+    argocd-image-updater.argoproj.io/write-back-method: git
 spec:
   project: default
   source:
