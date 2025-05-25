@@ -19,7 +19,7 @@ services:
 
   visits-service:
     image:
-      tag: e2c11b8
+      tag: 3702f91
 
   vets-service:
     image:
