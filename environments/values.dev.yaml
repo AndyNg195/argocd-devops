@@ -11,7 +11,7 @@ services:
 
   admin-server:
     image:
-      tag: latest
+      tag: f5d27e2
 
   customers-service:
     image:
