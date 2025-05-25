@@ -3,57 +3,37 @@ kind: Application
 metadata:
   name: petclinic-staging
   namespace: argocd
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: |
-      docker.io/andyng195/spring-petclinic-config-server
-      docker.io/andyng195/spring-petclinic-discovery-server
-      docker.io/andyng195/spring-petclinic-admin-server
-      docker.io/andyng195/spring-petclinic-customers-service
-      docker.io/andyng195/spring-petclinic-visits-service
-      docker.io/andyng195/spring-petclinic-vets-service
-      docker.io/andyng195/spring-petclinic-api-gateway
+annotations:
+    # Danh sách hình ảnh, có thể dùng cùng cấu hình với app-dev hoặc tùy chỉnh nếu muốn
+    argocd-image-updater.argoproj.io/image-list: >
+      config-server=andyng195/spring-petclinic-config-server,
+      discovery-server=andyng195/spring-petclinic-discovery-server,
+      admin-server=andyng195/spring-petclinic-admin-server,
+      customers-service=andyng195/spring-petclinic-customers-service,
+      visits-service=andyng195/spring-petclinic-visits-service,
+      vets-service=andyng195/spring-petclinic-vets-service,
+      api-gateway=andyng195/spring-petclinic-api-gateway
 
-    # CONFIG-SERVER
-    argocd-image-updater.argoproj.io/spring-petclinic-config-server.image-name: docker.io/andyng195/spring-petclinic-config-server
-    argocd-image-updater.argoproj.io/spring-petclinic-config-server.helm.image-name: services.config-server.image.name
-    argocd-image-updater.argoproj.io/spring-petclinic-config-server.update-strategy: latest
-    argocd-image-updater.argoproj.io/spring-petclinic-config-server.allow-tags: regexp:^.*$
+    argocd-image-updater.argoproj.io/api-gateway.helm.image-name: "spring-petclinic-api-gateway"
+    argocd-image-updater.argoproj.io/api-gateway.helm.image-tag: "services.api-gateway.image.tag"
 
-    # DISCOVERY-SERVER
-    argocd-image-updater.argoproj.io/spring-petclinic-discovery-server.image-name: docker.io/andyng195/spring-petclinic-discovery-server
-    argocd-image-updater.argoproj.io/spring-petclinic-discovery-server.helm.image-name: services.discovery-server.image.name
-    argocd-image-updater.argoproj.io/spring-petclinic-discovery-server.update-strategy: latest
-    argocd-image-updater.argoproj.io/spring-petclinic-discovery-server.allow-tags: regexp:^.*$
+    argocd-image-updater.argoproj.io/config-server.helm.image-name: "spring-petclinic-config-server"
+    argocd-image-updater.argoproj.io/config-server.helm.image-tag: "services.config-server.image.tag"
 
-    # ADMIN-SERVER
-    argocd-image-updater.argoproj.io/spring-petclinic-admin-server.image-name: docker.io/andyng195/spring-petclinic-admin-server
-    argocd-image-updater.argoproj.io/spring-petclinic-admin-server.helm.image-name: services.admin-server.image.name
-    argocd-image-updater.argoproj.io/spring-petclinic-admin-server.update-strategy: latest
-    argocd-image-updater.argoproj.io/spring-petclinic-admin-server.allow-tags: regexp:^.*$
+    argocd-image-updater.argoproj.io/discovery-server.helm.image-name: "spring-petclinic-discovery-server"
+    argocd-image-updater.argoproj.io/discovery-server.helm.image-tag: "services.discovery-server.image.tag"
 
-    # CUSTOMERS-SERVICE
-    argocd-image-updater.argoproj.io/spring-petclinic-customers-service.image-name: docker.io/andyng195/spring-petclinic-customers-service
-    argocd-image-updater.argoproj.io/spring-petclinic-customers-service.helm.image-name: services.customers-service.image.name
-    argocd-image-updater.argoproj.io/spring-petclinic-customers-service.update-strategy: latest
-    argocd-image-updater.argoproj.io/spring-petclinic-customers-service.allow-tags: regexp:^.*$
+    argocd-image-updater.argoproj.io/admin-server.helm.image-name: "spring-petclinic-admin-server"
+    argocd-image-updater.argoproj.io/admin-server.helm.image-tag: "services.admin-server.image.tag"
 
-    # VISITS-SERVICE
-    argocd-image-updater.argoproj.io/spring-petclinic-visits-service.image-name: docker.io/andyng195/spring-petclinic-visits-service
-    argocd-image-updater.argoproj.io/spring-petclinic-visits-service.helm.image-name: services.visits-service.image.name
-    argocd-image-updater.argoproj.io/spring-petclinic-visits-service.update-strategy: latest
-    argocd-image-updater.argoproj.io/spring-petclinic-visits-service.allow-tags: regexp:^.*$
+    argocd-image-updater.argoproj.io/customers-service.helm.image-name: "spring-petclinic-customers-service"
+    argocd-image-updater.argoproj.io/customers-service.helm.image-tag: "services.customers-service.image.tag"
 
-    # VETS-SERVICE
-    argocd-image-updater.argoproj.io/spring-petclinic-vets-service.image-name: docker.io/andyng195/spring-petclinic-vets-service
-    argocd-image-updater.argoproj.io/spring-petclinic-vets-service.helm.image-name: services.vets-service.image.name
-    argocd-image-updater.argoproj.io/spring-petclinic-vets-service.update-strategy: latest
-    argocd-image-updater.argoproj.io/spring-petclinic-vets-service.allow-tags: regexp:^.*$
+    argocd-image-updater.argoproj.io/visits-service.helm.image-name: "spring-petclinic-visits-service"
+    argocd-image-updater.argoproj.io/visits-service.helm.image-tag: "services.visits-service.image.tag"
 
-    # API-GATEWAY
-    argocd-image-updater.argoproj.io/spring-petclinic-api-gateway.image-name: docker.io/andyng195/spring-petclinic-api-gateway
-    argocd-image-updater.argoproj.io/spring-petclinic-api-gateway.helm.image-name: services.api-gateway.image.name
-    argocd-image-updater.argoproj.io/spring-petclinic-api-gateway.update-strategy: latest
-    argocd-image-updater.argoproj.io/spring-petclinic-api-gateway.allow-tags: regexp:^.*$
+    argocd-image-updater.argoproj.io/vets-service.helm.image-name: "spring-petclinic-vets-service"
+    argocd-image-updater.argoproj.io/vets-service.helm.image-tag: "services.vets-service.image.tag"
 
     # Cho phép ghi ngược về Git (ví dụ vào values.yaml)
     argocd-image-updater.argoproj.io/write-back-method: git
