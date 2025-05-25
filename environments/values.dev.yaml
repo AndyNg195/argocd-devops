@@ -19,7 +19,7 @@ services:
 
   visits-service:
     image:
-      tag: 80c0c47
+      tag: be54b93
 
   vets-service:
     image:
