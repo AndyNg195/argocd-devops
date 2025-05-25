@@ -71,7 +71,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: dev
+    namespace: petclinic-dev
 
   syncPolicy:
     syncOptions:
