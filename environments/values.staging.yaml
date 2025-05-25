@@ -1,31 +1,32 @@
 namespace: staging
 
+imageTag: &tag latest
 
 services:
   config-server:
     image:
-      tag: latest
+      tag: *tag
 
   discovery-server:
     image:
-      tag: latest
+      tag: *tag
 
   admin-server:
     image:
-      tag: latest
+      tag: *tag
 
   customers-service:
     image:
-      tag: latest
+      tag: *tag
 
   visits-service:
     image:
-      tag: latest
+      tag: *tag
 
   vets-service:
     image:
-      tag: latest
+      tag: *tag
 
   api-gateway:
     image:
-      tag: latest
+      tag: *tag
