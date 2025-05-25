@@ -3,11 +3,11 @@ namespace: dev
 services:
   config-server:
     image:
-      tag: latest
+      tag: f5d27e2
 
   discovery-server:
     image:
-      tag: latest
+      tag: f5d27e2
 
   admin-server:
     image:
@@ -15,16 +15,16 @@ services:
 
   customers-service:
     image:
-      tag: latest
+      tag: f5d27e2
 
   visits-service:
     image:
-      tag: latest
+      tag: 5feabb0
 
   vets-service:
     image:
-      tag: latest
+      tag: f5d27e2
 
   api-gateway:
     image:
-      tag: latest
+      tag: f5d27e2
