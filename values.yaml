@@ -13,6 +13,8 @@ ingress:
   adminServicePort: 9090
   discoveryServiceName: discovery-server
   discoveryServicePort: 8761
+  tracingServiceName: tracing-server
+  tracingServicePort: 9411
 
 configServerEnv: &configServerEnv
   name: CONFIG_SERVER_URL
@@ -36,9 +38,9 @@ services:
       targetPort: 8761
     image:
       name: spring-petclinic-discovery-server
-    env: 
+    env:
       - *configServerEnv
-    dependOn: 
+    dependOn:
       name: config-server
       port: 8888
 
@@ -48,7 +50,7 @@ services:
       targetPort: 9090
     image:
       name: spring-petclinic-admin-server
-    env: 
+    env:
       - *configServerEnv
     dependOn: *dependOnDiscovery
 
@@ -58,7 +60,7 @@ services:
       targetPort: 8081
     image:
       name: spring-petclinic-customers-service
-    env: 
+    env:
       - *configServerEnv
     dependOn: *dependOnDiscovery
 
@@ -68,7 +70,7 @@ services:
       targetPort: 8082
     image:
       name: spring-petclinic-visits-service
-    env: 
+    env:
       - *configServerEnv
     dependOn: *dependOnDiscovery
 
@@ -78,7 +80,7 @@ services:
       targetPort: 8083
     image:
       name: spring-petclinic-vets-service
-    env: 
+    env:
       - *configServerEnv
     dependOn: *dependOnDiscovery
 
@@ -88,6 +90,14 @@ services:
       targetPort: 8080
     image:
       name: spring-petclinic-api-gateway
-    env: 
+    env:
       - *configServerEnv
     dependOn: *dependOnDiscovery
+
+  tracing-server:
+    ports:
+      port: 9411
+      targetPort: 9411
+    image:
+      repository: openzipkin
+      name: zipkin
