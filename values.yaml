@@ -99,5 +99,4 @@ services:
       port: 9411
       targetPort: 9411
     image:
-      repository: openzipkin
-      name: zipkin
+      name: openzipkin/zipkin
