@@ -1,50 +1,50 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: { { .Values.ingress.name } }
-  namespace: { { .Values.namespace } }
+  name: {{ .Values.ingress.name }}
+  namespace: {{ .Values.namespace }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
-    - host: "{{ .Values.namespace }}-api.{{ .Values.ingress.host }}"
+    - host: '{{ .Values.namespace }}-api.{{ .Values.ingress.host }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: { { .Values.ingress.userServiceName } }
+                name: {{ .Values.ingress.userServiceName }}
                 port:
-                  number: { { .Values.ingress.userServicePort } }
-    - host: "{{ .Values.namespace }}-admin.{{ .Values.ingress.host }}"
+                  number: {{ .Values.ingress.userServicePort }}
+    - host: '{{ .Values.namespace }}-admin.{{ .Values.ingress.host }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: { { .Values.ingress.adminServiceName } }
+                name: {{ .Values.ingress.adminServiceName }}
                 port:
-                  number: { { .Values.ingress.adminServicePort } }
-    - host: "{{ .Values.namespace }}-discovery.{{ .Values.ingress.host }}"
+                  number: {{ .Values.ingress.adminServicePort }}
+    - host: '{{ .Values.namespace }}-discovery.{{ .Values.ingress.host }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: { { .Values.ingress.discoveryServiceName } }
+                name: {{ .Values.ingress.discoveryServiceName }}
                 port:
-                  number: { { .Values.ingress.discoveryServicePort } }
-    - host: "{{ .Values.namespace }}-tracing.{{ .Values.ingress.host }}"
+                  number: {{ .Values.ingress.discoveryServicePort }}
+    - host: '{{ .Values.namespace }}-tracing.{{ .Values.ingress.host }}'
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: { { .Values.ingress.tracingServiceName } }
+                name: {{ .Values.ingress.tracingServiceName }}
                 port:
-                  number: { { .Values.ingress.tracingServicePort } }
+                  number: {{ .Values.ingress.tracingServicePort }}
