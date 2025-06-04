@@ -3,7 +3,7 @@ namespace: dev
 services:
   config-server:
     image:
-      tag: f5d27e2
+      tag: 5afb3bb
 
   discovery-server:
     image:
