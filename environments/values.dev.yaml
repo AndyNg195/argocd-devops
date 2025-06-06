@@ -15,15 +15,15 @@ services:
 
   customers-service:
     image:
-      tag: f5d27e2
+      tag: 23537c5
 
   visits-service:
     image:
-      tag: 1b746e6
+      tag: 23537c5
 
   vets-service:
     image:
-      tag: f5d27e2
+      tag: 23537c5
 
   api-gateway:
     image:
