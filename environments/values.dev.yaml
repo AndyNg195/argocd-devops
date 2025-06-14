@@ -23,7 +23,7 @@ services:
 
   vets-service:
     image:
-      tag: 778de8f
+      tag: de6d83e
 
   api-gateway:
     image:
